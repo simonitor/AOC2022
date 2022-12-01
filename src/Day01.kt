@@ -1,17 +1,14 @@
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+    val elfs = readFile("inputDay1").split("\n\n").map { Elf(it) }
+    val answer = getFattestElf(elfs)?.calories
+    println("The most calories are $answer")
+}
+
+fun getFattestElf(elfs: List<Elf>) = elfs.maxByOrNull { it.calories }
+
+class Elf(private val cal: String) {
+    val calories = calculateCalories()
+    fun calculateCalories(): Int {
+        return cal.split("\n").sumOf { it.toInt() }
     }
-
-    fun part2(input: List<String>): Int {
-        return input.size
-    }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
-
-    val input = readInput("Day01")
-    println(part1(input))
-    println(part2(input))
 }
