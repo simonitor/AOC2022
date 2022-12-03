@@ -7,6 +7,7 @@ fun main() {
     }
     println(calculatePoints(games))
 
+    // second
     val games2 = readInput("inputDay2").map { it.split(" ") }.map {
         val enemyMove = Move.translateMove(it[0])
         Pair(Move.translateMoveSecondRuleSet(enemyMove, it[1]), enemyMove)
@@ -19,9 +20,10 @@ fun calculatePoints(games: List<Pair<Move, Move>>): Int {
 }
 
 val winMatrix = arrayOf(
-    arrayOf(DRA, LOS, WIN), //rock
-    arrayOf(WIN, DRA, LOS), //paper
-    arrayOf(LOS, WIN, DRA) //cisor
+    //******rock****paper***cisors*******
+    arrayOf(DRA,    LOS,    WIN), // rock
+    arrayOf(WIN,    DRA,    LOS), // paper
+    arrayOf(LOS,    WIN,    DRA) // cisors
 )
 
 enum class GameResult(val points: Int) {
@@ -44,14 +46,14 @@ enum class GameResult(val points: Int) {
 enum class Move(val index: Int, val points: Int) {
     ROCK(0, 1),
     PAPER(1, 2),
-    CISOR(2, 3);
+    CISORS(2, 3);
 
     companion object {
         fun translateMove(encryptedMove: String): Move {
             return when (encryptedMove) {
                 "A", "X" -> ROCK
                 "B", "Y" -> PAPER
-                "C", "Z" -> CISOR
+                "C", "Z" -> CISORS
                 else -> throw IllegalArgumentException()
             }
         }
