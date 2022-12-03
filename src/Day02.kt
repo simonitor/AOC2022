@@ -20,10 +20,10 @@ fun calculatePoints(games: List<Pair<Move, Move>>): Int {
 }
 
 val winMatrix = arrayOf(
-    //******rock****paper***cisors*******
+    //******rock****paper***scissors*******
     arrayOf(DRA,    LOS,    WIN), // rock
     arrayOf(WIN,    DRA,    LOS), // paper
-    arrayOf(LOS,    WIN,    DRA) // cisors
+    arrayOf(LOS,    WIN,    DRA) // scissors
 )
 
 enum class GameResult(val points: Int) {
@@ -46,14 +46,14 @@ enum class GameResult(val points: Int) {
 enum class Move(val index: Int, val points: Int) {
     ROCK(0, 1),
     PAPER(1, 2),
-    CISORS(2, 3);
+    SCISSORS(2, 3);
 
     companion object {
         fun translateMove(encryptedMove: String): Move {
             return when (encryptedMove) {
                 "A", "X" -> ROCK
                 "B", "Y" -> PAPER
-                "C", "Z" -> CISORS
+                "C", "Z" -> SCISSORS
                 else -> throw IllegalArgumentException()
             }
         }
