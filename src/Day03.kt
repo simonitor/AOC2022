@@ -11,14 +11,14 @@ fun findEquals(rucksacks: List<String>): Int {
     return rucksacks.map {
         it.substring(0, (it.length / 2)) to it.substring(it.length / 2, it.length)
     }.sumOf {
-        normalizeCharValue((it.first.toSet() intersect it.second.toSet()).random())
+        normalizeCharValue((it.first.toSet() intersect it.second.toSet()).single())
     }
 }
 
 fun findBadge(rucksacks: List<String>): Int {
     return rucksacks.chunked(3).sumOf {
         val (a, b, c) = it
-        normalizeCharValue((a.toSet() intersect b.toSet() intersect c.toSet()).random())
+        normalizeCharValue((a.toSet() intersect b.toSet() intersect c.toSet()).single())
     }
 }
 
