@@ -1,3 +1,6 @@
+import kotlin.math.max
+import kotlin.math.min
+
 fun main() {
     // first
     val input = readInput("inputDay4")
@@ -30,7 +33,7 @@ fun fullyContains(range: String, otherRange: String): Boolean {
 fun overlap(range: String, otherRange: String): Boolean {
     val (lowerBound, upperBound) = range.getUpperLower()
     val (lowerBoundOther, upperBoundOther) = otherRange.getUpperLower()
-    return fullyContains(range, otherRange) || (lowerBoundOther in lowerBound + 1..upperBound || lowerBound in lowerBoundOther + 1..upperBoundOther)
+    return max(lowerBound, upperBound) <= min(lowerBoundOther, upperBoundOther)
 }
 
 fun String.getUpperLower(): List<Int> {
