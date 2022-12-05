@@ -3,11 +3,25 @@ fun main() {
     val (startBoard, movelist) = readFile("inputDay5").split("\n\n").map { it.split("\n") }
     val boardState = setupBoard(startBoard.toMutableList())
     val parsedMoveList = parseMoveList(movelist)
-    apllyMoves(boardState, parsedMoveList)
+    applyMoves(boardState, parsedMoveList)
     println(getTopOfStacks(boardState))
     val boardState2 = setupBoard(startBoard.toMutableList())
-    apllyMovesWithNewCrane(boardState2, parsedMoveList)
+    applyMovesWithNewCrane(boardState2, parsedMoveList)
     println(getTopOfStacks(boardState2))
+}
+
+fun setupBoard(startBoard: MutableList<String>): MutableMap<String, MutableList<Char>> {
+    val coordinate = startBoard.removeLast()
+    val boardState = emptyMap<String, MutableList<Char>>().toMutableMap()
+    coordinate.filter { it != ' ' }.forEach { boardState[it.toString()] = emptyList<Char>().toMutableList() }
+    for (i in startBoard.size - 1 downTo 0) {
+        for (e in 0 until startBoard[i].length) {
+            if (startBoard[i][e] !in " []".toSet()) {
+                boardState[coordinate[e].toString()]?.add(startBoard[i][e])
+            }
+        }
+    }
+    return boardState
 }
 
 fun parseMoveList(moves :List<String>): List<List<String>>{
@@ -28,7 +42,7 @@ fun getTopOfStacks(boardState: MutableMap<String, MutableList<Char>>): String {
     }
 }
 
-fun apllyMoves(boardState: MutableMap<String, MutableList<Char>>, moveList: List<List<String>>) {
+fun applyMoves(boardState: MutableMap<String, MutableList<Char>>, moveList: List<List<String>>) {
     moveList.forEach {
         val (amount, from, to) = it
         for (i in 0 until amount.toInt()) {
@@ -38,7 +52,7 @@ fun apllyMoves(boardState: MutableMap<String, MutableList<Char>>, moveList: List
     }
 }
 
-fun apllyMovesWithNewCrane(boardState: MutableMap<String, MutableList<Char>>, moveList: List<List<String>>) {
+fun applyMovesWithNewCrane(boardState: MutableMap<String, MutableList<Char>>, moveList: List<List<String>>) {
     moveList.forEach {
         val (amount, from, to) = it
         val stack = boardState[from]?.takeLast(amount.toInt()) ?: return
@@ -49,16 +63,4 @@ fun apllyMovesWithNewCrane(boardState: MutableMap<String, MutableList<Char>>, mo
     }
 }
 
-fun setupBoard(startBoard: MutableList<String>): MutableMap<String, MutableList<Char>> {
-    val coordinate = startBoard.removeLast()
-    val boardState = emptyMap<String, MutableList<Char>>().toMutableMap()
-    coordinate.filter { it != ' ' }.forEach { boardState[it.toString()] = emptyList<Char>().toMutableList() }
-    for (i in startBoard.size - 1 downTo 0) {
-        for (e in 0 until startBoard[i].length) {
-            if (startBoard[i][e] !in " []".toSet()) {
-                boardState[coordinate[e].toString()]?.add(startBoard[i][e])
-            }
-        }
-    }
-    return boardState
-}
+
