@@ -11,7 +11,7 @@ fun findIndexOfByDecodeType(message: String, type: DecodeType): Int {
         if (s.toSet().size == type.value)
             return index + type.value
     }
-    error("No msg found or package found")
+    error("No msg or package found")
 }
 
 enum class DecodeType(val value: Int){
