@@ -1,12 +1,12 @@
 fun main() {
     val input = readFile("inputDay6")
     // first
-    println(findIndexOfPackage(input, DecodeType.PACKAGE))
+    println(findIndexOfByDecodeType(input, DecodeType.PACKAGE))
     // second
-    println(findIndexOfPackage(input, DecodeType.MESSAGE))
+    println(findIndexOfByDecodeType(input, DecodeType.MESSAGE))
 }
 
-fun findIndexOfPackage(message: String, type: DecodeType): Int {
+fun findIndexOfByDecodeType(message: String, type: DecodeType): Int {
     message.windowed(type.value).forEachIndexed { index, s ->
         if (s.toSet().size == type.value)
             return index + type.value
